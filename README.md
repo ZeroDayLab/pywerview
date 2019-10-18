@@ -1,4 +1,6 @@
 # PywerView
+
+**Forked to upgrade to python 3, because who uses python 2 anymore?**
       ____                        __     ___
      |  _ \ _   ___      _____ _ _\ \   / (_) _____      __
      | |_) | | | \ \ /\ / / _ \ '__\ \ / /| |/ _ \ \ /\ / /
