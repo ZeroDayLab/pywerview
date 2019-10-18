@@ -188,10 +188,10 @@ def main():
     # Parser for the get-netou command
     get_netou_parser = subparsers.add_parser('get-netou', help='Get a list of all current '\
         'OUs in the domain', parents=[ad_parser])
-    get_netou_parser.add_argument('--ouname', dest='queried_ouname',
-            default='*', help='OU name to query (wildcards accepted)')
+    get_netou_parser.add_argument('--ouname', dest='queried_ouname',\
+        default='*', help='OU name to query (wildcards accepted)')
     get_netou_parser.add_argument('--guid', dest='queried_guid',
-            help='Only return OUs with the specified GUID in their gplink property.')
+        help='Only return OUs with the specified GUID in their gplink property.')
     get_netou_parser.add_argument('-d', '--domain', dest='queried_domain',
             help='Domain to query')
     get_netou_parser.add_argument('-a', '--ads-path',
@@ -450,7 +450,7 @@ def main():
         args.password = getpass('Password:')
 
     parsed_args = dict()
-    for k, v in vars(args).iteritems():
+    for k, v in vars(args).items():
         if k not in ('func', 'hashes'):
             parsed_args[k] = v
 
@@ -464,9 +464,9 @@ def main():
         try:
             for x in results:
                 x = str(x)
-                print x
+                print(x)
                 if '\n' in x:
-                    print ''
+                    print('')
         except TypeError:
-            print results
+            print(results)
 

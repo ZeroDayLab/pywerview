@@ -180,15 +180,15 @@ def get_netprocess(target_computername, domain, user, password=str(),
 def get_userevent(target_computername, domain, user, password=str(),
                    lmhash=str(), nthash=str(), event_type=['logon', 'tgt'],
                    date_start=5):
-	requester = NetRequester(target_computername, domain, user, password,
+        requester = NetRequester(target_computername, domain, user, password,
                                  lmhash, nthash)
-	return requester.get_userevent(event_type=event_type,
+        return requester.get_userevent(event_type=event_type,
                                        date_start=date_start)
 
 def get_netgpo(domain_controller, domain, user, password=str(),
                lmhash=str(), nthash=str(), queried_gponame='*',
                queried_displayname=str(), queried_domain=str(), ads_path=str()):
-	requester = GPORequester(domain_controller, domain, user, password,
+        requester = GPORequester(domain_controller, domain, user, password,
                                  lmhash, nthash)
         return requester.get_netgpo(queried_gponame=queried_gponame,
                                     queried_displayname=queried_displayname,
@@ -197,7 +197,7 @@ def get_netgpo(domain_controller, domain, user, password=str(),
 def get_domainpolicy(domain_controller, domain, user, password=str(),
                      lmhash=str(), nthash=str(), source='domain', queried_domain=str(),
                      resolve_sids=False):
-	requester = GPORequester(domain_controller, domain, user, password,
+        requester = GPORequester(domain_controller, domain, user, password,
                                  lmhash, nthash)
 
         return requester.get_domainpolicy(source=source, queried_domain=queried_domain,
@@ -205,7 +205,7 @@ def get_domainpolicy(domain_controller, domain, user, password=str(),
 
 def get_gpttmpl(gpttmpl_path, domain_controller, domain, user, password=str(), lmhash=str(),
                 nthash=str()):
-	requester = GPORequester(domain_controller, domain, user, password,
+        requester = GPORequester(domain_controller, domain, user, password,
                                  lmhash, nthash)
 
         return requester.get_gpttmpl(gpttmpl_path)
@@ -213,7 +213,7 @@ def get_gpttmpl(gpttmpl_path, domain_controller, domain, user, password=str(), l
 def get_netgpogroup(domain_controller, domain, user, password=str(), lmhash=str(),
                     nthash=str(), queried_gponame='*', queried_displayname=str(),
                     queried_domain=str(), ads_path=str(), resolve_sids=False):
-	requester = GPORequester(domain_controller, domain, user, password,
+        requester = GPORequester(domain_controller, domain, user, password,
                                  lmhash, nthash)
 
         return requester.get_netgpogroup(queried_gponame=queried_gponame,
@@ -226,7 +226,7 @@ def find_gpocomputeradmin(domain_controller, domain, user, password=str(), lmhas
                           nthash=str(), queried_computername=str(),
                           queried_ouname=str(), queried_domain=str(),
                           recurse=False):
-	requester = GPORequester(domain_controller, domain, user, password,
+        requester = GPORequester(domain_controller, domain, user, password,
                                  lmhash, nthash)
 
         return requester.find_gpocomputeradmin(queried_computername=queried_computername,
@@ -237,7 +237,7 @@ def find_gpocomputeradmin(domain_controller, domain, user, password=str(), lmhas
 def find_gpolocation(domain_controller, domain, user, password=str(), lmhash=str(),
                      nthash=str(), queried_username=str(), queried_groupname=str(),
                      queried_localgroup=str(), queried_domain=str()):
-	requester = GPORequester(domain_controller, domain, user, password,
+        requester = GPORequester(domain_controller, domain, user, password,
                                  lmhash, nthash)
 
         return requester.find_gpolocation(queried_username=queried_username,

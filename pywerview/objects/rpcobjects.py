@@ -40,6 +40,7 @@ class RPCObject:
                 value = value.rstrip('\x00')
             if isinstance(value, str):
                 try:
+                    value = value.encode('utf-8')
                     value = value.decode('utf-8')
                 except UnicodeDecodeError:
                     pass
@@ -59,7 +60,7 @@ class RPCObject:
                 s += '{}: {}{}\n'.format(member[0], ' ' * (max_length - len(member[0])), member[1])
 
         s = s[:-1].encode('utf-8')
-        return s
+        return s.decode('utf-8')
 
     def __repr__(self):
         return str(self)
