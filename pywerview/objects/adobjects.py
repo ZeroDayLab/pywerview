@@ -21,6 +21,7 @@ from datetime import datetime
 import inspect
 import struct
 import pyasn1
+import binascii
 
 class ADObject:
     __uac_flags = {0x0000001: 'SCRIPT',
@@ -58,19 +59,19 @@ class ADObject:
             elif t in ('trustattributes', 'trustdirection', 'trusttype'):
                 value = int(attr['vals'][0])
             elif t in ('objectsid', 'ms-ds-creatorsid'):
-                value = str(attr['vals'][0]).encode('hex')
+                value = '{}'.format(binascii.hexlify(bytes(str(attr['vals'][0]),'utf-8')))
                 init_value = str(attr['vals'][0])
                 value = 'S-1-5'
-                for i in xrange(8, len(init_value), 4):
-                    value += '-{}'.format(str(struct.unpack('<I', init_value[i:i+4])[0]))
+                for i in range(8, len(init_value), 4):
+                    value += '-{}'.format(str(struct.unpack('<I', bytes(init_value,'utf-8')[i:i+4])[0]))
             elif t == 'objectguid':
                 init_value = str(attr['vals'][0])
                 value = str()
-                value += '{}-'.format(hex(struct.unpack('<I', init_value[0:4])[0])[2:].zfill(8))
-                value += '{}-'.format(hex(struct.unpack('<H', init_value[4:6])[0])[2:].zfill(4))
-                value += '{}-'.format(hex(struct.unpack('<H', init_value[6:8])[0])[2:].zfill(4))
-                value += '{}-'.format(init_value.encode('hex')[16:20])
-                value += init_value.encode('hex')[20:]
+                value += '{}-'.format(hex(struct.unpack('<I', bytes(init_value,'utf-8')[0:4])[0])[2:].zfill(8))
+                value += '{}-'.format(hex(struct.unpack('<H', bytes(init_value,'utf-8')[4:6])[0])[2:].zfill(4))
+                value += '{}-'.format(hex(struct.unpack('<H', bytes(init_value,'utf-8')[6:8])[0])[2:].zfill(4))
+                value += '{}-'.format(binascii.hexlify(bytes(init_value,'utf-8'))[16:20])
+                value += '{}'.format(binascii.hexlify(bytes(init_value,'utf-8'))[20:])
             elif t in ('dscorepropagationdata', 'whenchanged', 'whencreated'):
                 value = list()
                 for val in attr['vals']:
@@ -125,7 +126,7 @@ class ADObject:
                                   'msrtcsip-userroutinggroupid', 'msexchumpinchecksum',
                                   'protocom-sso-auth-data', 'protocom-sso-entries-checksum',
                                   'protocom-sso-security-prefs-checksum', ):
-                    member_value = '{}...'.format(member[1].encode('hex')[:100])
+                    member_value = '{}...'.format(binascii.hexlify(bytes(member[1],'utf-8'))[:100])
                 else:
                     member_value = member[1]
                 s += '{}: {}{}\n'.format(member[0], ' ' * (max_length - len(member[0])), member_value)
