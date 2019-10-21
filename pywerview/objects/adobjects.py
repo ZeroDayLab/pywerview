@@ -117,7 +117,7 @@ class ADObject:
                     elif member[0] in ('usercertificate',
                                        'protocom-sso-entries', 'protocom-sso-security-prefs',):
                         member_value = (',\n' + ' ' * (max_length + 2)).join(
-                                '{}...'.format(x.encode('hex')[:100]) for x in member[1])
+                                '{}...'.format(binascii.hexlify(bytes(x,'utf-8'))[:100]) for x in member[1])
                     else:
                         member_value = (',\n' + ' ' * (max_length + 2)).join(str(x) for x in member[1])
                 elif member[0] in('msmqsigncertificates', 'userparameters',
